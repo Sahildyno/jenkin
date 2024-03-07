@@ -13,7 +13,10 @@ pipeline {
         }
         stage('Test'){
             steps {
-                echo 'Test Success'
+                withSonarQubeEnv(installationName: 'sonar', credentialsId: 'sonar-creds') {
+                     sh '/opt/maven/bin/mvn sonar:sonar'
+
+                }
             }
         }
         stage('Deploy'){
